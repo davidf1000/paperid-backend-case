@@ -1,5 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
-import { DataSource } from "typeorm";
+import { NextFunction, Request, Response } from "express";
 import myDataSource from "../models/db";
 import { User } from "../models/user.models";
 import * as bcrypt from "bcryptjs";

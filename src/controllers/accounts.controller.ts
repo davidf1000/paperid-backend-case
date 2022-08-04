@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Account } from "../models/accounts.model";
 import myDataSource from "../models/db";
 import { User } from "../models/user.models";

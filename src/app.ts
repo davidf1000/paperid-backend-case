@@ -1,8 +1,5 @@
-import bodyParser from "body-parser";
 import express, { Application, NextFunction, Request, Response } from "express";
-import { connect } from "http2";
 import swaggerUi from "swagger-ui-express";
-import { ConnectionOptionsReader } from "typeorm";
 import {
   createAccount,
   deleteAccountById,
