@@ -1,7 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  BaseEntity,
+} from "typeorm";
 import { Account } from "./accounts.model";
-@Entity()
-export class Transaction {
+@Entity({ name: "Transaction" })
+export class Transaction extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -16,6 +22,9 @@ export class Transaction {
 
   @Column()
   date: string;
+
+  @Column({ default: true })
+  status: boolean;
 
   @ManyToOne((type) => Account, (account) => account.transactions)
   account: Account;

@@ -4,16 +4,21 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Transaction } from "./transactions.model";
 import { User } from "./user.models";
-@Entity()
-export class Account {
+
+@Entity({ name: "Account" })
+export class Account extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   name: string;
+
+  @Column({ default: true })
+  status: boolean;
 
   @ManyToOne((type) => User, (user) => user.accounts) user: User;
 
