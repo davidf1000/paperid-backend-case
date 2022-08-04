@@ -1,0 +1,1102 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Paper.id Backend Engineer case",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "http://localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "authentication",
+      "description": "user auth"
+    },
+    {
+      "name": "accounts",
+      "description": "user financial accounts"
+    },
+    {
+      "name": "transactions",
+      "description": "user transactions"
+    },
+    {
+      "name": "summary",
+      "description": "user spending summary"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "User Register",
+        "operationId": "userRegister",
+        "tags": ["authentication"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "register information",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/LoginInfo"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User Created",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Account created"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "user login",
+        "operationId": "userLogin",
+        "tags": ["authentication"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "login information",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/LoginInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/User"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts": {
+      "get": {
+        "summary": "List all financial accounts",
+        "operationId": "listAccounts",
+        "tags": ["accounts"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Accounts"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Operation Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a financial account",
+        "operationId": "createAccount",
+        "tags": ["accounts"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "financial account",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/AccountInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Account"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}": {
+      "get": {
+        "summary": "Info for a specific financial account",
+        "operationId": "showAccountById",
+        "tags": ["accounts"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the account to retrieve",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Account"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update financial account",
+        "operationId": "updateAccountById",
+        "tags": ["accounts"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the pet to update",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Account"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete financial account",
+        "operationId": "deleteAccountById",
+        "tags": ["accounts"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the pet to delete",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Account"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "get": {
+        "summary": "List all transactions",
+        "operationId": "listTransactions",
+        "tags": ["transactions"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Transactions"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a transaction",
+        "operationId": "createTransactions",
+        "tags": ["transactions"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "transaction",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/TransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Transactions"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{transactionId}": {
+      "get": {
+        "summary": "Info for a specific transaction",
+        "operationId": "showTransactionById",
+        "tags": ["transactions"],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the transaction to retrieve",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Transaction"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update transaction",
+        "operationId": "updateTransactionById",
+        "tags": ["transactions"],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the transaction to update",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Transaction"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete transaction by id",
+        "operationId": "deleteTransactionById",
+        "tags": ["transactions"],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the pet to delete",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/Transaction"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/daily": {
+      "get": {
+        "summary": "Get daily financial",
+        "operationId": "getSummary",
+        "tags": ["summary"],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "description": "year",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "month",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "day",
+            "in": "query",
+            "description": "day",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/SummaryDaily"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monthly": {
+      "get": {
+        "summary": "Get monthly financial",
+        "operationId": "getSummaryMonthly",
+        "tags": ["summary"],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "description": "year",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "description": "month",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/SummaryMonthly"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "LoginInfo": {
+      "type": "object",
+      "required": ["username", "password"],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "username"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": ["userId", "token"],
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "userId"
+        },
+        "token": {
+          "type": "string",
+          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        }
+      }
+    },
+    "AccountInput": {
+      "type": "object",
+      "required": ["name", "userId"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "userId": {
+          "type": "string",
+          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        },
+        "financialName": {
+          "type": "string",
+          "example": "E-wallet"
+        }
+      }
+    },
+    "Account": {
+      "type": "object",
+      "required": ["id", "name", "userId"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        },
+        "name": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "userId": {
+          "type": "string",
+          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        }
+      }
+    },
+    "Accounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Account"
+      }
+    },
+    "TransactionInput": {
+      "type": "object",
+      "required": ["title", "desc", "amount", "date", "financialId"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "desc": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "amount": {
+          "type": "number",
+          "example": 15000
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-07-21T17:32:28Z"
+        },
+        "financialId": {
+          "type": "string",
+          "example": "Cad06d8777-896e-4a74-8f81-7b530b17f9dbsh"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "required": ["id", "title", "desc", "amount", "date", "financialId"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        },
+        "title": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "desc": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "amount": {
+          "type": "number",
+          "example": 15000
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-07-21T17:32:28Z"
+        },
+        "financialId": {
+          "type": "string",
+          "example": "Cad06d8777-896e-4a74-8f81-7b530b17f9dbsh"
+        }
+      }
+    },
+    "Transactions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Transaction"
+      }
+    },
+    "SummaryDaily": {
+      "type": "object",
+      "required": [
+        "date",
+        "totalExpense",
+        "totalIncome",
+        "netIncome",
+        "maximumExpense"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-07-21"
+        },
+        "totalExpense": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "totalIncome": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "netIncome": {
+          "type": "number",
+          "example": 15000
+        },
+        "maximumExpense": {
+          "type": "object",
+          "required": ["title", "financialName", "amount"],
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Bayar kos"
+            },
+            "financialName": {
+              "type": "string",
+              "example": "Cash"
+            },
+            "amount": {
+              "type": "number",
+              "example": 2000000
+            }
+          }
+        }
+      }
+    },
+    "SummaryMonthly": {
+      "type": "object",
+      "required": [
+        "month",
+        "totalExpense",
+        "totalIncome",
+        "netIncome",
+        "maximumExpense"
+      ],
+      "properties": {
+        "month": {
+          "type": "string",
+          "example": "2017-07"
+        },
+        "totalExpense": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "totalIncome": {
+          "type": "string",
+          "example": "Cash"
+        },
+        "netIncome": {
+          "type": "number",
+          "example": 15000
+        },
+        "maximumExpense": {
+          "type": "object",
+          "required": ["title", "financialName", "amount"],
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Bayar kos"
+            },
+            "financialName": {
+              "type": "string",
+              "example": "Cash"
+            },
+            "amount": {
+              "type": "number",
+              "example": 2000000
+            }
+          }
+        }
+      }
+    }
+  }
+}
