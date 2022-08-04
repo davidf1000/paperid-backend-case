@@ -9,19 +9,30 @@ export const getAllAccounts = async (
   next: NextFunction
 ) => {
   try {
-    const accounts = await myDataSource.getRepository(Account).find({
-      where: { status: true },
-      relations: {
-        user: true,
-      },
-    });
-    const accountsMapped = accounts.map((x) => ({
+    const page = Number(req.query.page || 0),
+      perPage = Number(req.query.perPage || 10);
+    const [accounts, total] = await myDataSource
+      .getRepository(Account)
+      .findAndCount({
+        where: { status: true },
+        relations: {
+          user: true,
+        },
+        take: perPage,
+        skip: page * perPage,
+      });
+    let accountsMapped = accounts.map((x) => ({
       ...x,
       user: {
         id: x.user.id,
         username: x.user.username,
       },
     }));
+    if (req.query.userId) {
+      accountsMapped = accountsMapped.filter(
+        (x) => x.user.id === req.query.userId
+      );
+    }
     res.status(200).json({
       status: "success",
       data: accountsMapped,
@@ -83,6 +94,21 @@ export const createAccount = async (
   next: NextFunction
 ) => {
   try {
+    const foundDuplicateAccount = await myDataSource
+      .getRepository(Account)
+      .findOne({
+        where: {
+          name: req.body.name,
+        },
+      });
+    if (foundDuplicateAccount) {
+      res.status(404).json({
+        status: "error",
+        data: null,
+        message: "Cannot create duplicate financial account",
+      });
+      return;
+    }
     const foundUser = await myDataSource.getRepository(User).findOne({
       where: {
         id: req.body.userId,
