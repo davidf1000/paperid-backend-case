@@ -2,13 +2,16 @@ import { DataSource } from "typeorm";
 import { Account } from "./accounts.model";
 import { Transaction } from "./transactions.model";
 import { User } from "./user.models";
+import { config } from "dotenv";
+
+config();
 
 const dataSource = new DataSource({
   type: "mysql",
   host: "localhost",
-  port: 3306,
-  username: "root",
-  password: "1234",
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
   database: "finances",
   entities: [User, Account, Transaction],
   logging: false,

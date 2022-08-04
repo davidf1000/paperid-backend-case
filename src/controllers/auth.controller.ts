@@ -4,6 +4,9 @@ import myDataSource from "../models/db";
 import { User } from "../models/user.models";
 import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { config } from "dotenv";
+
+config();
 
 export const getProfileUser = async (
   req: Request,
@@ -73,7 +76,7 @@ export const userLogin = async (
     }
     const token = jwt.sign(
       { id: foundUser.id, username: foundUser.username },
-      "secret_key",
+      String(process.env.JWT_SECRET),
       {
         expiresIn: "1 hours",
       }

@@ -101,7 +101,7 @@ export const getSummary = async (
         totalIncome,
         totalExpense: totalExpense * -1,
         netIncome: totalIncome + totalExpense,
-        maximumExpense
+        maximumExpense,
       },
       message: "success",
     });
