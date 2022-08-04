@@ -68,4 +68,13 @@ app.put("/transactions/:transactionId", auth, updateTransactionById);
 app.delete("/transactions/:transactionId", auth, deleteTransactionById);
 // summary
 app.get("/summary", auth, getSummary);
+// catcher for all
+app.get("*", (req: Request, res: Response, next: NextFunction) => {
+  res.status(405).json({
+    status: "error",
+    data: null,
+    message: "Method not allowed",
+  });
+});
+
 export default app;
