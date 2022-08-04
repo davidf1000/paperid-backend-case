@@ -11,8 +11,8 @@ const myDataSource = new DataSource({
   password: "1234",
   database: "finances",
   entities: [User, Account, Transaction],
-  logging: true,
-  synchronize: true,
+  logging: false,
+  synchronize: false
 });
 
 export default myDataSource;

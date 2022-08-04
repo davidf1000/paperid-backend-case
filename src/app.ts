@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import express, { Application, NextFunction, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import {
@@ -23,10 +24,13 @@ import {
   getTransactionById,
   updateTransactionById,
 } from "./controllers/transactions.controller";
+import { auth } from "./middleware/auth";
 import myDataSource from "./models/db";
 import swaggerSetup from "./swagger.json";
 
 const app: Application = express();
+app.use(express.json());
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 // db
 myDataSource
@@ -48,21 +52,21 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 // auth
 app.post("/login", userLogin);
 app.post("/register", userRegister);
-app.get("/users:userId", getProfileUser);
+app.get("/users:userId", auth, getProfileUser);
 // accounts
-app.get("/accounts", getAllAccounts);
-app.post("/accounts", createAccount);
-app.get("/accounts/:accountId", getAccountById);
-app.put("/accounts/:accountId", updateAccountById);
-app.delete("/accounts/:accountId", deleteAccountById);
+app.get("/accounts", auth, getAllAccounts);
+app.post("/accounts", auth, createAccount);
+app.get("/accounts/:accountId", auth, getAccountById);
+app.put("/accounts/:accountId", auth, updateAccountById);
+app.delete("/accounts/:accountId", auth, deleteAccountById);
 
 // transactions
-app.get("/transactions", getAllTransactions);
-app.post("/transactions", createTransaction);
-app.get("/transactions/:transactionId", getTransactionById);
-app.put("/transactions/:transactionId", updateTransactionById);
-app.delete("/transactions/:transactionId", deleteTransactionById);
+app.get("/transactions", auth, getAllTransactions);
+app.post("/transactions", auth, createTransaction);
+app.get("/transactions/:transactionId", auth, getTransactionById);
+app.put("/transactions/:transactionId", auth, updateTransactionById);
+app.delete("/transactions/:transactionId", auth, deleteTransactionById);
 // summary
-app.get("/daily", getDailySummary);
-app.get("/monthly", getMonthlySummary);
+app.get("/daily", auth, getDailySummary);
+app.get("/monthly", auth, getMonthlySummary);
 export default app;

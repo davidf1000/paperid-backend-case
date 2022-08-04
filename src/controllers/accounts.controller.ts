@@ -1,13 +1,16 @@
 import express, { Application, NextFunction, Request, Response } from "express";
+import { Account } from "../models/accounts.model";
+import myDataSource from "../models/db";
 
-export const getAllAccounts = (
+export const getAllAccounts = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  res.json({
-    message: "Get all accounts",
-  });
+  const accounts = await myDataSource.getRepository(Account).find();
+  console.log(accounts);
+  
+  res.json(accounts);
 };
 
 export const getAccountById = (
@@ -15,9 +18,12 @@ export const getAccountById = (
   res: Response,
   next: NextFunction
 ) => {
-  res.json({
-    message: "getAccountById",
-  });
+  const accounts = myDataSource.getRepository(Account).find();
+  res.json(accounts);
+
+  //   res.json({
+  //     message: "getAccountById",
+  //   });
 };
 
 export const createAccount = (
