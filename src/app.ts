@@ -1,6 +1,8 @@
 import bodyParser from "body-parser";
 import express, { Application, NextFunction, Request, Response } from "express";
+import { connect } from "http2";
 import swaggerUi from "swagger-ui-express";
+import { ConnectionOptionsReader } from "typeorm";
 import {
   createAccount,
   deleteAccountById,
@@ -37,7 +39,8 @@ myDataSource
   .initialize()
   .then(async (connection) => {
     console.log("Data Source has been initialized!");
-    await connection.runMigrations();
+    // await connection.runMigrations();
+    // await connection.synchronize()
   })
   .catch((err) => {
     console.error("Error during Data Source initialization:", err);

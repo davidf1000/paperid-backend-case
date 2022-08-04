@@ -8,7 +8,7 @@
     "build": "tsc",
     "dev": "nodemon ./src/server.ts",
     "start": "node ./dist/server.js",
-    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts"
+    "typeorm": "npx --require ts-node/register ./node_modules/typeorm/cli.js"
   },
   "keywords": [],
   "author": "",
