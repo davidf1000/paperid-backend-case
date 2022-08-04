@@ -1,0 +1,560 @@
+{
+	"info": {
+		"_postman_id": "80148de7-7b1d-4316-92ac-fe0af270a882",
+		"name": "Paper.id Backend API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11781459"
+	},
+	"item": [
+		{
+			"name": "Root /",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"david\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"david\",\r\n    \"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get /users/:userId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/:userId",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "de24c01f-6977-48f4-a634-488ff1302857"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/accounts?userId=de24c01f-6977-48f4-a634-488ff1302857",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "de24c01f-6977-48f4-a634-488ff1302857"
+						},
+						{
+							"key": "page",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "perPage",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"cash\",\r\n    \"userId\": \"de24c01f-6977-48f4-a634-488ff1302857\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/accounts",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /accounts/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/accounts/:accountId",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"accounts",
+						":accountId"
+					],
+					"variable": [
+						{
+							"key": "accountId",
+							"value": "bba431f9-74a0-48ce-818b-8fcb6776221c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /accounts/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"bank\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/accounts/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"accounts",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "bf37532c-a489-4cae-b86b-c1d50eeaa7b6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /accounts/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/accounts/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"accounts",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "bba431f9-74a0-48ce-818b-8fcb6776221c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "b89072c0-9081-4c0f-9329-007859e53107",
+							"disabled": true
+						},
+						{
+							"key": "financialId",
+							"value": "422f6342-7a2f-4b90-85cf-3ddeb70b7526",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "perPage",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"financialId\":\"48f12879-a24f-427c-91eb-8a597cb1283b\",\r\n    \"title\" : \"uang kembalian\",\r\n    \"desc\" : \"kembalian dari teman\",\r\n    \"amount\" : \"10000\",\r\n    \"date\" : \"2022-08-15T17:32:28Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /transactions/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/transactions/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "e3c346c7-c695-4051-b70f-c1ea26e41aa4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /transactions/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"bayar PAM\",\r\n        \"desc\": \"Bayar air lewat transfer\",\r\n        \"amount\": -400000,\r\n        \"date\": \"2022-08-05T17:32:28Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/transactions/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6fd67d9d-9d05-461b-a08d-53a9d34cc8a6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /transactions/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/transactions/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "fd624e3f-3a2e-41b4-a23c-1fab8c38e219"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /Summary",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlMjRjMDFmLTY5NzctNDhmNC1hNjM0LTQ4OGZmMTMwMjg1NyIsInVzZXJuYW1lIjoiZGF2aWQiLCJpYXQiOjE2NTk2NTU1MTQsImV4cCI6MTY1OTY1OTExNH0.CFdt4aTBC-o3QFMt-tMKo_u73OzzUkMfuxZS2a5XJ5Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/summary?userId=de24c01f-6977-48f4-a634-488ff1302857&type=daily&date=2022-08-15",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"summary"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "de24c01f-6977-48f4-a634-488ff1302857"
+						},
+						{
+							"key": "financialId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "daily"
+						},
+						{
+							"key": "date",
+							"value": "2022-08-15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
