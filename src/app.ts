@@ -1,16 +1,12 @@
-import { config } from 'dotenv';
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, NextFunction, Request, Response } from "express";
 
-config();
 
 const app: Application = express();
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.send('Express server with TypeScript');
+app.get("/", (req: Request, res: Response, next: NextFunction) => {
+  res.json({
+    message: "Paper.id Backend Engineer Test Case by David Fauzi",
+  });
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-});
+export default app;
