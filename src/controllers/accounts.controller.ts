@@ -21,21 +21,15 @@ export const getAllAccounts = async (
         take: perPage,
         skip: page * perPage,
       });
-    let accountsMapped = accounts.map((x) => ({
-      ...x,
-      user: {
-        id: x.user.id,
-        username: x.user.username,
-      },
-    }));
+    let accountsFiltered = accounts;
     if (req.query.userId) {
-      accountsMapped = accountsMapped.filter(
+      accountsFiltered = accountsFiltered.filter(
         (x) => x.user.id === req.query.userId
       );
     }
     res.status(200).json({
       status: "success",
-      data: accountsMapped,
+      data: accountsFiltered,
       message: "get accounts success",
     });
   } catch (error: any) {
@@ -69,13 +63,7 @@ export const getAccountById = async (
     }
     res.status(200).json({
       status: "success",
-      data: {
-        ...account,
-        user: {
-          username: account.user.username,
-          id: account.user.id,
-        },
-      },
+      data: account,
       message: "success",
     });
   } catch (error: any) {
@@ -128,13 +116,7 @@ export const createAccount = async (
 
     res.status(200).json({
       status: "success",
-      data: {
-        ...account,
-        user: {
-          username: account.user.username,
-          id: account.user.id,
-        },
-      },
+      data: account,
       message: "success",
     });
   } catch (error: any) {
@@ -172,13 +154,7 @@ export const updateAccountById = async (
     await myDataSource.getRepository(Account).save(account);
     res.status(200).json({
       status: "success",
-      data: {
-        ...account,
-        user: {
-          username: account.user.username,
-          id: account.user.id,
-        },
-      },
+      data: account,
       message: "Update Success",
     });
   } catch (error: any) {
@@ -215,13 +191,7 @@ export const deleteAccountById = async (
     await myDataSource.getRepository(Account).save(account);
     res.status(200).json({
       status: "success",
-      data: {
-        ...account,
-        user: {
-          username: account.user.username,
-          id: account.user.id,
-        },
-      },
+      data: account,
       message: "Remove Success",
     });
   } catch (error: any) {

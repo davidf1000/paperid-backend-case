@@ -15,10 +15,7 @@ import {
   userLogin,
   userRegister,
 } from "./controllers/auth.controller";
-import {
-  getDailySummary,
-  getMonthlySummary,
-} from "./controllers/summary.controller";
+import { getSummary } from "./controllers/summary.controller";
 import {
   createTransaction,
   deleteTransactionById,
@@ -70,6 +67,5 @@ app.get("/transactions/:transactionId", auth, getTransactionById);
 app.put("/transactions/:transactionId", auth, updateTransactionById);
 app.delete("/transactions/:transactionId", auth, deleteTransactionById);
 // summary
-app.get("/daily", auth, getDailySummary);
-app.get("/monthly", auth, getMonthlySummary);
+app.get("/summary", auth, getSummary);
 export default app;

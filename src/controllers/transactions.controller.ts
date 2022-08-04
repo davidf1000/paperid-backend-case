@@ -23,16 +23,7 @@ export const getAllTransactions = async (
         take: perPage,
         skip: page * perPage,
       });
-    let transactionsFiltered = transactions.map((x) => ({
-      ...x,
-      account: {
-        ...x.account,
-        user: {
-          id: x.account.user.id,
-          username: x.account.user.username,
-        },
-      },
-    }));
+    let transactionsFiltered = transactions;
     if (req.query.userId) {
       transactionsFiltered = transactionsFiltered.filter(
         (x) => x.account.user.id === req.query.userId
@@ -66,7 +57,9 @@ export const getTransactionById = async (
     const transaction = await myDataSource.getRepository(Transaction).findOne({
       where: { id: req.params.transactionId, status: true },
       relations: {
-        account: true,
+        account: {
+          user: true,
+        },
       },
     });
     if (!transaction) {
@@ -80,16 +73,7 @@ export const getTransactionById = async (
 
     res.status(200).json({
       status: "success",
-      data: {
-        ...transaction,
-        account: {
-          ...transaction.account,
-          user: {
-            id: transaction.account.user.id,
-            username: transaction.account.user.username,
-          },
-        },
-      },
+      data: transaction,
       message: "success",
     });
   } catch (error: any) {
@@ -137,16 +121,7 @@ export const createTransaction = async (
       .save(newTransaction);
     res.status(201).json({
       status: "success",
-      data: {
-        ...transaction,
-        account: {
-          ...transaction.account,
-          user: {
-            id: transaction.account.user.id,
-            username: transaction.account.user.username,
-          },
-        },
-      },
+      data: transaction,
       message: "update transaction success",
     });
   } catch (error: any) {
@@ -167,7 +142,9 @@ export const updateTransactionById = async (
     const transaction = await myDataSource.getRepository(Transaction).findOne({
       where: { id: req.params.transactionId, status: true },
       relations: {
-        account: true,
+        account: {
+          user: true,
+        },
       },
     });
     if (!transaction) {
@@ -186,16 +163,7 @@ export const updateTransactionById = async (
     await myDataSource.getRepository(Transaction).save(transaction);
     res.status(200).json({
       status: "success",
-      data: {
-        ...transaction,
-        account: {
-          ...transaction.account,
-          user: {
-            id: transaction.account.user.id,
-            username: transaction.account.user.username,
-          },
-        },
-      },
+      data: transaction,
       message: "Update Success",
     });
   } catch (error: any) {
@@ -216,7 +184,9 @@ export const deleteTransactionById = async (
     const transaction = await myDataSource.getRepository(Transaction).findOne({
       where: { id: req.params.transactionId, status: true },
       relations: {
-        account: true,
+        account: {
+          user: true,
+        },
       },
     });
     if (!transaction) {
@@ -231,16 +201,7 @@ export const deleteTransactionById = async (
     await myDataSource.getRepository(Transaction).save(transaction);
     res.status(200).json({
       status: "success",
-      data: {
-        ...transaction,
-        account: {
-          ...transaction.account,
-          user: {
-            id: transaction.account.user.id,
-            username: transaction.account.user.username,
-          },
-        },
-      },
+      data: transaction,
       message: "Delete Success",
     });
     return;
