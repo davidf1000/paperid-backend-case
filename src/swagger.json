@@ -2,10 +2,11 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Paper.id Backend Engineer case",
+    "title": "Paper.id Backend Engineer case - David Fauzi",
     "license": {
       "name": "MIT"
-    }
+    },
+    "description": "OPEN API REST API Documentation created using Swagger, consists of all api endpoints, required or optional path and query parameter, response data definition for both successfull and failed request"
   },
   "host": "http://localhost:3000",
   "basePath": "/",
@@ -16,15 +17,15 @@
     },
     {
       "name": "accounts",
-      "description": "user financial accounts"
+      "description": "financial accounts for user"
     },
     {
       "name": "transactions",
-      "description": "user transactions"
+      "description": "Transactions for each financial account created by user"
     },
     {
       "name": "summary",
-      "description": "user spending summary"
+      "description": "User monthly and daily spending summary"
     }
   ],
   "schemes": ["http"],
@@ -156,15 +157,96 @@
         }
       }
     },
+    "/users/{userId}": {
+      "post": {
+        "summary": "User profile",
+        "operationId": "userProfile",
+        "tags": ["authentication"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The id of user",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Profile Successful",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/UserWithId"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Success"
+                }
+              }
+            }
+          },
+          "4XX, 5XX": {
+            "description": "Unexpected error",
+            "schema": {
+              "types": "object",
+              "required": ["status", "data", "message"],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "error"
+                },
+                "data": {
+                  "type": "null",
+                  "example": null
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error has occurred"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/accounts": {
       "get": {
         "summary": "List all financial accounts",
         "operationId": "listAccounts",
         "tags": ["accounts"],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "description": "Query all accounts for specified userId only",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page for pagination (from page 0)",
+            "type": "number"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "description": "Number of records per page",
+            "type": "number"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Get List of Financial Accounts Successful",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -224,7 +306,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Login Successful",
+            "description": "Create Financial Accounts Successful",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -283,7 +365,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Get info of Financial Accounts successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -340,7 +422,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Update Financial Accounts Successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -397,7 +479,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Delete Financial Accounts Successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -445,10 +527,39 @@
         "summary": "List all transactions",
         "operationId": "listTransactions",
         "tags": ["transactions"],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "description": "Query all accounts for specified userId only",
+            "type": "string"
+          },
+          {
+            "name": "financialId",
+            "in": "query",
+            "required": false,
+            "description": "Query all accounts for specified financial account id only",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page for pagination (from page 0)",
+            "type": "number"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "description": "Number of records per page",
+            "type": "number"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "List all Transactions successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -462,7 +573,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Login Success"
+                  "example": "Success"
                 }
               }
             }
@@ -508,7 +619,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Login Successful",
+            "description": "Create Transactions successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -522,7 +633,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Login Success"
+                  "example": "Success"
                 }
               }
             }
@@ -567,7 +678,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Get Transactions by id successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -581,7 +692,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Login Success"
+                  "example": "Success"
                 }
               }
             }
@@ -624,7 +735,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Update Transactions successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -638,7 +749,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Login Success"
+                  "example": "Success"
                 }
               }
             }
@@ -681,7 +792,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Delete Transactions successfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -695,7 +806,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Login Success"
+                  "example": "Success"
                 }
               }
             }
@@ -724,40 +835,45 @@
         }
       }
     },
-    "/daily": {
+    "/summary": {
       "get": {
-        "summary": "Get daily financial",
+        "summary": "Get monthly and daily financial summary",
         "operationId": "getSummary",
         "tags": ["summary"],
         "parameters": [
           {
-            "name": "year",
+            "name": "type",
             "in": "query",
-            "description": "year",
+            "description": "type of summary (daily/monthly)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "date with format YYYY-MM-DD for daily and YYYY-MM for monthly",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "month",
+            "name": "userId",
             "in": "query",
-            "description": "month",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
+            "required": false,
+            "description": "Calculate Summary for all transactions created by with specified userId only",
+            "type": "string"
           },
           {
-            "name": "day",
+            "name": "financialId",
             "in": "query",
-            "description": "day",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
+            "required": false,
+            "description": "Calculate Summary for all transactions created by specified financial account id only",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Login Successful",
+            "description": "Get Summary Sucessfull",
             "schema": {
               "types": "object",
               "required": ["status", "data", "message"],
@@ -767,79 +883,11 @@
                   "example": "success"
                 },
                 "data": {
-                  "$ref": "#/definitions/SummaryDaily"
+                  "$ref": "#/definitions/Summary"
                 },
                 "message": {
                   "type": "string",
-                  "example": "Login Success"
-                }
-              }
-            }
-          },
-          "4XX, 5XX": {
-            "description": "Unexpected error",
-            "schema": {
-              "types": "object",
-              "required": ["status", "data", "message"],
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "example": "error"
-                },
-                "data": {
-                  "type": "null",
-                  "example": null
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Error has occurred"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/monthly": {
-      "get": {
-        "summary": "Get monthly financial",
-        "operationId": "getSummaryMonthly",
-        "tags": ["summary"],
-        "parameters": [
-          {
-            "name": "year",
-            "in": "query",
-            "description": "year",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "month",
-            "in": "query",
-            "description": "month",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Login Successful",
-            "schema": {
-              "types": "object",
-              "required": ["status", "data", "message"],
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "example": "success"
-                },
-                "data": {
-                  "$ref": "#/definitions/SummaryMonthly"
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Login Success"
+                  "example": "Success"
                 }
               }
             }
@@ -899,6 +947,20 @@
         }
       }
     },
+    "UserWithId": {
+      "type": "object",
+      "required": ["userId", "username"],
+      "properties": {
+        "userId": {
+          "type": "string",
+          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        },
+        "username": {
+          "type": "string",
+          "example": "username"
+        }
+      }
+    },
     "AccountInput": {
       "type": "object",
       "required": ["name", "userId"],
@@ -910,16 +972,12 @@
         "userId": {
           "type": "string",
           "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
-        },
-        "financialName": {
-          "type": "string",
-          "example": "E-wallet"
         }
       }
     },
     "Account": {
       "type": "object",
-      "required": ["id", "name", "userId"],
+      "required": ["id", "name", "status", "user"],
       "properties": {
         "id": {
           "type": "string",
@@ -929,9 +987,12 @@
           "type": "string",
           "example": "Cash"
         },
-        "userId": {
-          "type": "string",
-          "example": "d06d8777-896e-4a74-8f81-7b530b17f9db"
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
+        "user": {
+          "$ref": "#/definitions/UserWithId"
         }
       }
     },
@@ -970,7 +1031,15 @@
     },
     "Transaction": {
       "type": "object",
-      "required": ["id", "title", "desc", "amount", "date", "financialId"],
+      "required": [
+        "id",
+        "title",
+        "desc",
+        "amount",
+        "date",
+        "account",
+        "status"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -988,14 +1057,17 @@
           "type": "number",
           "example": 15000
         },
+        "status": {
+          "type": "boolean",
+          "example": true
+        },
         "date": {
           "type": "string",
           "format": "date-time",
           "example": "2017-07-21T17:32:28Z"
         },
-        "financialId": {
-          "type": "string",
-          "example": "Cad06d8777-896e-4a74-8f81-7b530b17f9dbsh"
+        "account": {
+          "$ref": "#/definitions/Account"
         }
       }
     },
@@ -1005,7 +1077,7 @@
         "$ref": "#/definitions/Transaction"
       }
     },
-    "SummaryDaily": {
+    "Summary": {
       "type": "object",
       "required": [
         "date",
@@ -1015,86 +1087,24 @@
         "maximumExpense"
       ],
       "properties": {
-        "date": {
+        "type": {
           "type": "string",
-          "format": "date",
-          "example": "2017-07-21"
+          "example": "monthly/daily"
         },
         "totalExpense": {
-          "type": "string",
-          "example": "Cash"
+          "type": "number",
+          "example": 1500000
         },
         "totalIncome": {
-          "type": "string",
-          "example": "Cash"
+          "type": "number",
+          "example": 6500000
         },
         "netIncome": {
           "type": "number",
-          "example": 15000
+          "example": 5000000
         },
         "maximumExpense": {
-          "type": "object",
-          "required": ["title", "financialName", "amount"],
-          "properties": {
-            "title": {
-              "type": "string",
-              "example": "Bayar kos"
-            },
-            "financialName": {
-              "type": "string",
-              "example": "Cash"
-            },
-            "amount": {
-              "type": "number",
-              "example": 2000000
-            }
-          }
-        }
-      }
-    },
-    "SummaryMonthly": {
-      "type": "object",
-      "required": [
-        "month",
-        "totalExpense",
-        "totalIncome",
-        "netIncome",
-        "maximumExpense"
-      ],
-      "properties": {
-        "month": {
-          "type": "string",
-          "example": "2017-07"
-        },
-        "totalExpense": {
-          "type": "string",
-          "example": "Cash"
-        },
-        "totalIncome": {
-          "type": "string",
-          "example": "Cash"
-        },
-        "netIncome": {
-          "type": "number",
-          "example": 15000
-        },
-        "maximumExpense": {
-          "type": "object",
-          "required": ["title", "financialName", "amount"],
-          "properties": {
-            "title": {
-              "type": "string",
-              "example": "Bayar kos"
-            },
-            "financialName": {
-              "type": "string",
-              "example": "Cash"
-            },
-            "amount": {
-              "type": "number",
-              "example": 2000000
-            }
-          }
+          "$ref": "#/definitions/Transaction"
         }
       }
     }

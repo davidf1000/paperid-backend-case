@@ -57,15 +57,23 @@ export const userLogin = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password } = req.body;
   try {
+    const { username, password } = req.body;
+    console.log(username, password);
     const foundUser = await myDataSource.getRepository(User).findOne({
       where: { username: username },
+      select: {
+        id: true,
+        username: true,
+        password: true,
+      },
     });
     const comparePassword = await bcrypt.compare(
       password,
       foundUser ? foundUser.password : ""
     );
+    console.log(comparePassword);
+
     if (!comparePassword || !foundUser) {
       res.status(403).json({
         status: "error",
@@ -74,11 +82,13 @@ export const userLogin = async (
       });
       return;
     }
+    console.log(String(process.env.SECRET_JWT));
+
     const token = jwt.sign(
       { id: foundUser.id, username: foundUser.username },
-      String(process.env.JWT_SECRET),
+      String(process.env.SECRET_JWT),
       {
-        expiresIn: "1 hours",
+        expiresIn: "1h",
       }
     );
     const responseData = {
@@ -91,10 +101,10 @@ export const userLogin = async (
       message: "login success",
     });
   } catch (error: any) {
-    res.status(405).json({
+    res.status(500).json({
       status: "error",
       data: error.message,
-      message: "user not found",
+      message: "Problem with Server",
     });
   }
 };
