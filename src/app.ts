@@ -52,7 +52,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 // auth
 app.post("/login", userLogin);
 app.post("/register", userRegister);
-app.get("/users:userId", auth, getProfileUser);
+app.get("/users/:userId", auth, getProfileUser);
 // accounts
 app.get("/accounts", auth, getAllAccounts);
 app.post("/accounts", auth, createAccount);

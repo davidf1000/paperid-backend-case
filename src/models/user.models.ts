@@ -9,7 +9,7 @@ import { Account } from "./accounts.model";
 @Entity({ name: "User" })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column({ unique: true })
   username: string;

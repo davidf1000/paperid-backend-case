@@ -10,7 +10,7 @@ import { User } from "./user.models";
 @Entity()
 export class Account {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column()
   name: string;

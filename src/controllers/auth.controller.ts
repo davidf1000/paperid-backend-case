@@ -5,14 +5,48 @@ import { User } from "../models/user.models";
 import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export const getProfileUser = (
+export const getProfileUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  res.json({
-    message: "getProfileUser",
-  });
+  try {
+    if (!req.params.userId) {
+      res.status(404).json({
+        status: "error",
+        data: null,
+        message: "bad request",
+      });
+      return;
+    }
+    const foundUser = await myDataSource.getRepository(User).findOneBy({
+      id: req.params.userId,
+    });
+
+    if (!foundUser) {
+      res.status(404).json({
+        status: "error",
+        data: null,
+        message: "user not found",
+      });
+      return;
+    }
+    const { username, id } = foundUser;
+    res.status(200).json({
+      status: "success",
+      data: {
+        userId: id,
+        username: username,
+      },
+      message: "login success",
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: "error",
+      data: error.message,
+      message: "Problem with server",
+    });
+  }
 };
 
 export const userLogin = async (

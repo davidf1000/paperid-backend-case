@@ -3,7 +3,7 @@ import { Account } from "./accounts.model";
 @Entity()
 export class Transaction {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column()
   title: string;
