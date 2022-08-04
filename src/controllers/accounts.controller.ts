@@ -86,6 +86,7 @@ export const createAccount = async (
       .findOne({
         where: {
           name: req.body.name,
+          status: true
         },
       });
     if (foundDuplicateAccount) {
