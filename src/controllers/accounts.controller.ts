@@ -67,16 +67,15 @@ export const getAccountById = async (
       });
       return;
     }
-    const accountMapped = {
-      ...account,
-      user: {
-        username: account?.user.username,
-        userId: account?.user.id,
-      },
-    };
     res.status(200).json({
       status: "success",
-      data: accountMapped,
+      data: {
+        ...account,
+        user: {
+          username: account.user.username,
+          id: account.user.id,
+        },
+      },
       message: "success",
     });
   } catch (error: any) {
@@ -129,7 +128,13 @@ export const createAccount = async (
 
     res.status(200).json({
       status: "success",
-      data: account,
+      data: {
+        ...account,
+        user: {
+          username: account.user.username,
+          id: account.user.id,
+        },
+      },
       message: "success",
     });
   } catch (error: any) {
@@ -167,7 +172,13 @@ export const updateAccountById = async (
     await myDataSource.getRepository(Account).save(account);
     res.status(200).json({
       status: "success",
-      data: account,
+      data: {
+        ...account,
+        user: {
+          username: account.user.username,
+          id: account.user.id,
+        },
+      },
       message: "Update Success",
     });
   } catch (error: any) {
@@ -204,7 +215,13 @@ export const deleteAccountById = async (
     await myDataSource.getRepository(Account).save(account);
     res.status(200).json({
       status: "success",
-      data: account,
+      data: {
+        ...account,
+        user: {
+          username: account.user.username,
+          id: account.user.id,
+        },
+      },
       message: "Remove Success",
     });
   } catch (error: any) {
