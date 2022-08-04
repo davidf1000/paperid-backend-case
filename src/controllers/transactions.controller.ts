@@ -9,15 +9,34 @@ export const getAllTransactions = async (
   next: NextFunction
 ) => {
   try {
-    const transactions = await myDataSource.getRepository(Transaction).find({
-      where: { status: true },
-      relations: {
-        account: true,
-      },
-    });
+    const page = Number(req.query.page || 0),
+      perPage = Number(req.query.perPage || 10);
+    const [transactions, total] = await myDataSource
+      .getRepository(Transaction)
+      .findAndCount({
+        where: { status: true },
+        relations: {
+          account: {
+            user: true,
+          },
+        },
+        take: perPage,
+        skip: page * perPage,
+      });
+    let transactionsFiltered = transactions;
+    if (req.query.userId) {
+      transactionsFiltered = transactionsFiltered.filter(
+        (x) => x.account.user.id === req.query.userId
+      );
+    }
+    if (req.query.financialId) {
+      transactionsFiltered = transactionsFiltered.filter(
+        (x) => x.account.id === req.query.financialId
+      );
+    }
     res.status(200).json({
       status: "success",
-      data: transactions,
+      data: transactionsFiltered,
       message: "Get all transactions success",
     });
   } catch (error: any) {
