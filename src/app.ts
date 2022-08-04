@@ -36,16 +36,16 @@ app.post("/register", userRegister);
 // accounts
 app.get("/accounts", getAllAccounts);
 app.post("/accounts", createAccount);
-app.get("/accounts", getAccountById);
-app.put("/accounts", updateAccountById);
-app.delete("/accounts", deleteAccountById);
+app.get("/accounts/:accountId", getAccountById);
+app.put("/accounts/:accountId", updateAccountById);
+app.delete("/accounts/:accountId", deleteAccountById);
 
 // transactions
 app.get("/transactions", getAllTransactions);
 app.post("/transactions", createTransaction);
-app.get("/transactions", getTransactionById);
-app.put("/transactions", updateTransactionById);
-app.delete("/transactions", deleteTransactionById);
+app.get("/transactions/:transactionId", getTransactionById);
+app.put("/transactions/:transactionId", updateTransactionById);
+app.delete("/transactions/:transactionId", deleteTransactionById);
 // summary
 app.get("/daily", getDailySummary);
 app.get("/monthly", getMonthlySummary);
