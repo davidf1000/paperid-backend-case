@@ -15,15 +15,13 @@ export const getAllAccounts = async (
         user: true,
       },
     });
-    const accountsMapped = accounts
-      .filter((x) => x.status)
-      .map((x) => ({
-        ...x,
-        user: {
-          id: x.user.id,
-          username: x.user.username,
-        },
-      }));
+    const accountsMapped = accounts.map((x) => ({
+      ...x,
+      user: {
+        id: x.user.id,
+        username: x.user.username,
+      },
+    }));
     res.status(200).json({
       status: "success",
       data: accountsMapped,
@@ -101,7 +99,7 @@ export const createAccount = async (
     const newAccount = new Account();
     newAccount.name = req.body.name;
     newAccount.user = foundUser;
-    const account = myDataSource.getRepository(Account).save(newAccount);
+    const account = await myDataSource.getRepository(Account).save(newAccount);
 
     res.status(200).json({
       status: "success",
