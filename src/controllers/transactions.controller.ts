@@ -105,7 +105,6 @@ export const createTransaction = async (
       });
       return;
     }
-    console.log(foundAccount);
 
     const newTransaction = new Transaction();
     const { title, desc, amount, date } = req.body;
@@ -114,7 +113,6 @@ export const createTransaction = async (
     newTransaction.amount = amount;
     newTransaction.date = date;
     newTransaction.account = foundAccount;
-    console.log(newTransaction);
 
     const transaction = await myDataSource
       .getRepository(Transaction)

@@ -58,7 +58,6 @@ export const userLogin = async (
 ) => {
   try {
     const { username, password } = req.body;
-    console.log(username, password);
     const foundUser = await myDataSource.getRepository(User).findOne({
       where: { username: username },
       select: {
@@ -71,7 +70,6 @@ export const userLogin = async (
       password,
       foundUser ? foundUser.password : ""
     );
-    console.log(comparePassword);
 
     if (!comparePassword || !foundUser) {
       res.status(403).json({
@@ -81,7 +79,6 @@ export const userLogin = async (
       });
       return;
     }
-    console.log(String(process.env.SECRET_JWT));
 
     const token = jwt.sign(
       { id: foundUser.id, username: foundUser.username },
